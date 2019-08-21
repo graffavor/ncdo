@@ -95,6 +95,11 @@ todo::todo(cdo::config &c) {
   std::wifstream ifile(todo_file, ios_base::in);
 
   if (!ifile) {
+    // no reason try to open other files if we cannot read todo file in single file mode
+    if (c.createIfNotExists()) {
+      return;
+    }
+
     std::cerr << "cannot open todo.txt file" << std::endl;
     exit(1);
   }

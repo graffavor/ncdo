@@ -26,6 +26,7 @@ class config {
     done_file = path;
     single_file = true;
     report_enabled = false;
+    create_if_not_exists = true;
   }
 
   // ---
@@ -37,6 +38,7 @@ class config {
   string getReportFile() { return resolve(todo_dir, report_file); }
 
   bool isReportEnabled() { return report_enabled; }
+  bool createIfNotExists() { return create_if_not_exists; }
 
  protected:
   string resolve(string base, string other = "");
@@ -48,6 +50,7 @@ class config {
   string report_file = "report.txt";
   bool single_file = false;
   bool report_enabled = true;
+  bool create_if_not_exists = false;
 };
 }
 
