@@ -28,7 +28,7 @@ void term::update(WINDOW *wnd) {
 }
 
 void term::clear(WINDOW *wnd) {
-  wclear(wnd);
+  werase(wnd);
 }
 
 void term::setMode(mode m) {
