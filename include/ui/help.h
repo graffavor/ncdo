@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UI_HELP_H_
-#define CURSEDO_INCLUDE_UI_HELP_H_
+#ifndef NCDO_INCLUDE_UI_HELP_H_
+#define NCDO_INCLUDE_UI_HELP_H_
 
 #include "includes.h"
 #include "component.h"
@@ -19,4 +19,4 @@ class help_window : public component, public rawpress_handler {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UI_HELP_H_
+#endif //NCDO_INCLUDE_UI_HELP_H_

@@ -1,5 +1,5 @@
-#ifndef CURSEDO_HOOK_H
-#define CURSEDO_HOOK_H
+#ifndef NCDO_HOOK_H
+#define NCDO_HOOK_H
 
 #include <list>
 #include <functional>
@@ -53,4 +53,4 @@ class hook<R(Args...)> {
 };
 }
 
-#endif //CURSEDO_HOOK_H
+#endif //NCDO_HOOK_H

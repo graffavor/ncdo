@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UI_EDITOR_H_
-#define CURSEDO_INCLUDE_UI_EDITOR_H_
+#ifndef NCDO_INCLUDE_UI_EDITOR_H_
+#define NCDO_INCLUDE_UI_EDITOR_H_
 
 #include <string>
 #include "includes.h"
@@ -43,4 +43,4 @@ class editor : component {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UI_EDITOR_H_
+#endif //NCDO_INCLUDE_UI_EDITOR_H_

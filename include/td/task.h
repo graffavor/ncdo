@@ -1,5 +1,5 @@
-#ifndef CURSEDO_TASK_H
-#define CURSEDO_TASK_H
+#ifndef NCDO_TASK_H
+#define NCDO_TASK_H
 
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
@@ -29,4 +29,4 @@ struct task {
 }
 }
 
-#endif //CURSEDO_TASK_H
+#endif //NCDO_TASK_H

@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UI_MENU_H_
-#define CURSEDO_INCLUDE_UI_MENU_H_
+#ifndef NCDO_INCLUDE_UI_MENU_H_
+#define NCDO_INCLUDE_UI_MENU_H_
 
 #include "includes.h"
 #include <string>
@@ -27,4 +27,4 @@ class menu : public component {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UI_MENU_H_
+#endif //NCDO_INCLUDE_UI_MENU_H_

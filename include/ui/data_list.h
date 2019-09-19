@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UI_DATA_LIST_H_
-#define CURSEDO_INCLUDE_UI_DATA_LIST_H_
+#ifndef NCDO_INCLUDE_UI_DATA_LIST_H_
+#define NCDO_INCLUDE_UI_DATA_LIST_H_
 
 #include "includes.h"
 #include <vector>
@@ -43,4 +43,4 @@ class data_list : public component, public keypress_handler {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UI_DATA_LIST_H_
+#endif //NCDO_INCLUDE_UI_DATA_LIST_H_

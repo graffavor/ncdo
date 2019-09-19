@@ -1,5 +1,5 @@
-#ifndef CURSEDO_TODO_H
-#define CURSEDO_TODO_H
+#ifndef NCDO_TODO_H
+#define NCDO_TODO_H
 
 #include <string>
 #include <vector>
@@ -32,6 +32,7 @@ class todo {
   vector<task>::const_iterator end() { return tasks_.end(); }
 
   size_t size() { return tasks_.size(); }
+  bool isChanged() { return is_changed; }
 
   void addTask(const wstring &str, int pos = -1);
 
@@ -44,6 +45,7 @@ class todo {
 
  private:
   bool done_in_todo = false;
+  bool is_changed = false;
 
   string todo_file;
   string done_file;
@@ -58,4 +60,4 @@ class todo {
 }
 }
 
-#endif //CURSEDO_TODO_H
+#endif //NCDO_TODO_H

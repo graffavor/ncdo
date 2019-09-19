@@ -1,5 +1,5 @@
-#ifndef CURSEDO_TASK_LIST_H
-#define CURSEDO_TASK_LIST_H
+#ifndef NCDO_TASK_LIST_H
+#define NCDO_TASK_LIST_H
 
 #include "includes.h"
 #include <vector>
@@ -12,6 +12,7 @@
 #include "util.h"
 #include "menu.h"
 #include "help.h"
+#include "exit_popup.h"
 
 using namespace cdo::td;
 
@@ -74,9 +75,11 @@ class task_list : public component, public keypress_handler {
   menu menu_;
   help_window help_;
 
+  std::shared_ptr<exit_popup> exit_popup_;
+
   bool should_display(const task&);
 };
 }
 }
 
-#endif //CURSEDO_TASK_LIST_H
+#endif //NCDO_TASK_LIST_H

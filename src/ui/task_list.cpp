@@ -29,6 +29,15 @@ task_list::task_list(todo *td, cdo::term *tm) :
     this->update_data();
   };
 
+  tm->on_exit += [this]() {
+    if (this->todo_ref_->isChanged() && this->exit_popup_ == nullptr) {
+      // dont use std::make_shared to avoid deleted copy constructor
+      this->blur();
+      this->exit_popup_ = std::shared_ptr<exit_popup>(new exit_popup(this->term_ref_, this->todo_ref_));
+      this->exit_popup_->draw();
+    }
+  };
+
   tm->on_resize += [this]() {
     // todo: currently its broken
     auto term_width = this->term_ref_->getWidth();

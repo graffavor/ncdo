@@ -1,6 +1,6 @@
-#ifndef CURSEDO_UI_H
-#define CURSEDO_UI_H
+#ifndef NCDO_UI_H
+#define NCDO_UI_H
 
 #include "ui/task_list.h"
 
-#endif //CURSEDO_UI_H
+#endif //NCDO_UI_H

@@ -1,10 +1,11 @@
 #include <cwctype>
+#include <cassert>
 #include "ui/editor.h"
 
 namespace cdo {
 namespace ui {
 void editor::handleInput(wint_t key) {
-  if (!wnd_)
+  if (wnd_ == nullptr)
     return;
 
   switch (key) {

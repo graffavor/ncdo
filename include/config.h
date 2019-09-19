@@ -1,5 +1,5 @@
-#ifndef CURSEDO_CONFIG_H
-#define CURSEDO_CONFIG_H
+#ifndef NCDO_CONFIG_H
+#define NCDO_CONFIG_H
 
 #include <string>
 
@@ -54,4 +54,4 @@ class config {
 };
 }
 
-#endif //CURSEDO_CONFIG_H
+#endif //NCDO_CONFIG_H

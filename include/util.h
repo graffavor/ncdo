@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UTIL_H_
-#define CURSEDO_INCLUDE_UTIL_H_
+#ifndef NCDO_INCLUDE_UTIL_H_
+#define NCDO_INCLUDE_UTIL_H_
 
 namespace cdo {
 namespace util {
@@ -18,4 +18,4 @@ class non_movable {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UTIL_H_
+#endif //NCDO_INCLUDE_UTIL_H_

@@ -31,6 +31,9 @@ void help_window::draw() {
 }
 
 void help_window::on_key_pressed(wint_t key) {
+  if (wnd_ == nullptr)
+    return;
+
   if (key == 27) {
     terminate();
     on_close();

@@ -152,6 +152,7 @@ void todo::setComplete(const task &t, bool value) {
   for (auto &i : tasks_) {
     if (i == t) {
       i.done = value;
+      is_changed = true;
     }
   }
 }
@@ -165,6 +166,7 @@ void todo::addTask(const wstring &str, int pos) {
     tasks_.emplace(tasks_.begin() + pos, tmp);
 
   extract_task_fields(str);
+  is_changed = true;
 }
 
 void todo::placeBefore(const task &target, const task &ref) {
@@ -177,6 +179,7 @@ void todo::placeBefore(const task &target, const task &ref) {
 
   tasks_.erase(ti);
   tasks_.emplace(ri, target);
+  is_changed = true;
 }
 
 void todo::placeAfter(const task &target, const task &ref) {
@@ -189,12 +192,14 @@ void todo::placeAfter(const task &target, const task &ref) {
 
   tasks_.emplace(ri + 1, target);
   tasks_.erase(ti);
+  is_changed = true;
 }
 
 void todo::remove(const task &t) {
   auto ti = std::find(tasks_.begin(), tasks_.end(), t);
   if (ti != tasks_.end()) {
     tasks_.erase(ti);
+    is_changed = true;
   }
 }
 
@@ -241,6 +246,7 @@ void todo::save() {
   }
 
   out.close();
+  is_changed = false;
 }
 }
 }

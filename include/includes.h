@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDES_H
-#define CURSEDO_INCLUDES_H
+#ifndef NCDO_INCLUDES_H
+#define NCDO_INCLUDES_H
 
 #ifdef __APPLE__
 #define _XOPEN_SOURCE_EXTENDED
@@ -10,4 +10,4 @@
 
 #include <string>
 
-#endif //CURSEDO_INCLUDES_H
+#endif //NCDO_INCLUDES_H

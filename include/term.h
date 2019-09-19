@@ -1,5 +1,5 @@
-#ifndef CURSEDO_TERM_H
-#define CURSEDO_TERM_H
+#ifndef NCDO_TERM_H
+#define NCDO_TERM_H
 
 #include "includes.h"
 #include <locale>
@@ -48,9 +48,14 @@ class term {
 
   void run();
   void resize();
+  void stop() { end_ = true; };
+
+  // prevent loop termination if it was requested by other component or via key press
+  void preventExit() { end_ = false; };
 
   hook<void()> on_resize;
   hook<void()> on_init;
+  hook<void()> on_exit;
   // keypress handlers in normal mode
   hook<void(wint_t)> on_key_pressed;
   // keypress handlers in skip mode (all key presses will be send to this hooks)
@@ -59,6 +64,8 @@ class term {
  private:
   int width_;
   int height_;
+
+  bool end_ = false;
 
   std::map<std::string, std::tuple<short, short, short>> colors_;
   short color_pair_counter_ = 0;
@@ -69,4 +76,4 @@ class term {
 };
 }
 
-#endif //CURSEDO_TERM_H
+#endif //NCDO_TERM_H

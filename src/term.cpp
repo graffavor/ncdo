@@ -50,17 +50,16 @@ void term::run() {
   on_init();
   update();
 
-  for (;;) {
+  for (;!end_;) {
     wint_t ch;
     get_wch(&ch);
 
     on_raw_pressed(ch);
 
     if (ch == KEY_F(4) || (mode_ == MODE_NORMAL && (ch == 'q' || ch == 'Q'))) {
-      break;
-    }
-
-    if (mode_ != MODE_SKIP) {
+      end_ = true;
+      on_exit();
+    } else if (mode_ != MODE_SKIP) {
       on_key_pressed(ch);
     }
   }

@@ -1,5 +1,5 @@
-#ifndef CURSEDO_INCLUDE_UI_COMPONENT_H_
-#define CURSEDO_INCLUDE_UI_COMPONENT_H_
+#ifndef NCDO_INCLUDE_UI_COMPONENT_H_
+#define NCDO_INCLUDE_UI_COMPONENT_H_
 
 #include "includes.h"
 #include <list>
@@ -76,4 +76,4 @@ class rawpress_handler : public util::non_copyable {
 }
 }
 
-#endif //CURSEDO_INCLUDE_UI_COMPONENT_H_
+#endif //NCDO_INCLUDE_UI_COMPONENT_H_

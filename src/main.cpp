@@ -51,7 +51,9 @@ int main(int argc, char *argv[]) {
 
   term->defineColors()
       ("highlighted_item", COLOR_CYAN)
-      ("focused_window", -1, COLOR_BLUE);
+      ("focused_window", -1, COLOR_BLUE)
+      ("exit_popup", COLOR_WHITE, COLOR_MAGENTA)
+      ("exit_popup_btn", COLOR_WHITE, COLOR_RED);
 
   cdo::ui::task_list task_list(&td, term.get());
 
