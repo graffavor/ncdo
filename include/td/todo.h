@@ -37,6 +37,8 @@ class todo {
   void addTask(const wstring &str, int pos = -1);
 
   void setComplete(const task &, bool);
+  void setPriority(const task &, char);
+  void sort();
   void placeBefore(const task &, const task &);
   void placeAfter(const task &, const task &);
   void remove(const task &);

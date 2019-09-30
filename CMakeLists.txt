@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(ncdo VERSION 1.0 DESCRIPTION "NCurses tool for managing todo.txt todo lists")
 
-set(SOURCE_FILES src/main.cpp include/term.h include/config.h src/config.cpp src/term.cpp src/td/todo.cpp include/td/todo.h include/hook.h include/ui/task_list.h src/ui/task_list.cpp include/ui.h include/ui/editor.h src/ui/editor.cpp include/util.h include/ui/component.h src/ui/component.cpp include/ui/data_list.h src/ui/data_list.cpp include/ui/charcodes.h include/ui/menu.h src/ui/menu.cpp include/ui/help.h src/ui/help.cpp include/td/task.h include/includes.h include/ui/exit_popup.h src/ui/exit_popup.cpp include/ui/textutil.h src/ui/textutil.cpp)
+set(SOURCE_FILES src/main.cpp include/term.h include/config.h src/config.cpp src/term.cpp src/td/todo.cpp include/td/todo.h include/hook.h include/ui/task_list.h src/ui/task_list.cpp include/ui.h include/ui/editor.h src/ui/editor.cpp include/util.h include/ui/component.h src/ui/component.cpp include/ui/data_list.h src/ui/data_list.cpp include/ui/charcodes.h include/ui/menu.h src/ui/menu.cpp include/ui/help.h src/ui/help.cpp include/td/task.h include/includes.h include/ui/exit_popup.h src/ui/exit_popup.cpp include/ui/textutil.h src/ui/textutil.cpp src/td/task.cpp)
 
 if (APPLE)
     set(CMAKE_PREFIX_PATH "/usr/local/opt/ncurses")

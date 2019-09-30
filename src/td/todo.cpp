@@ -157,6 +157,15 @@ void todo::setComplete(const task &t, bool value) {
   }
 }
 
+void todo::setPriority(const task &t, char value) {
+  for (auto &i : tasks_) {
+    if (i == t) {
+      i.priority = value;
+      is_changed = true;
+    }
+  }
+}
+
 void todo::addTask(const wstring &str, int pos) {
   task tmp;
   tmp.desc = str;
@@ -167,6 +176,10 @@ void todo::addTask(const wstring &str, int pos) {
 
   extract_task_fields(str);
   is_changed = true;
+}
+
+void todo::sort() {
+  std::stable_sort(tasks_.begin(), tasks_.end());
 }
 
 void todo::placeBefore(const task &target, const task &ref) {

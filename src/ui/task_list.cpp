@@ -21,7 +21,7 @@ task_list::task_list(todo *td, cdo::term *tm) :
     this->context_list_.init(term_width - w, (term_height - 1) / 2, w, (term_height) / 2);
     this->context_list_.update();
 
-    this->menu_.init(term_width-1, 2, 1, term_height - 1);
+    this->menu_.init(term_width - 1, 2, 1, term_height - 1);
     this->menu_.push_state({L"F: Filter", L"S: Sort", L"+,-: Arrange", L"E: Edit", L"X: Remove"});
     this->menu_.draw();
 
@@ -129,6 +129,15 @@ void task_list::draw() {
     waddch(wnd_, ']');
 
     waddch(wnd_, ' ');
+
+    if (task.priority != 0) {
+      wattron(wnd_, A_ITALIC);
+      waddch(wnd_, '(');
+      waddch(wnd_, task.priority);
+      waddch(wnd_, ')');
+      wattroff(wnd_, A_ITALIC);
+      waddch(wnd_, ' ');
+    }
 
     wstringstream ss(task.desc);
     wstring tmp;
@@ -291,6 +300,59 @@ void task_list::on_key_pressed(wint_t key) {
 
       break;
     }
+    case 's':
+    case 'S': {
+      sort_data();
+      break;
+    }
+    case '1':
+    case 'a':
+    case 'A': {
+      if (selected_item_ > -1) {
+        auto &item = data_copy_[selected_item_];
+        todo_ref_->setPriority(item, item.priority != 'A' ? 'A' : 0);
+        update_data();
+      }
+      break;
+    }
+    case '2':
+    case 'b':
+    case 'B': {
+      if (selected_item_ > -1) {
+        auto &item = data_copy_[selected_item_];
+        todo_ref_->setPriority(item, item.priority != 'B' ? 'B' : 0);
+        update_data();
+      }
+      break;
+    }
+    case '3':
+    case 'c':
+    case 'C': {
+      if (selected_item_ > -1) {
+        auto &item = data_copy_[selected_item_];
+        todo_ref_->setPriority(item, item.priority != 'C' ? 'C' : 0);
+        update_data();
+      }
+      break;
+    }
+    case '<': {
+      if (selected_item_ > -1) {
+        auto &item = data_copy_[selected_item_];
+        todo_ref_->setPriority(item,
+                               (char) (item.priority == 0 ? 'A' : (item.priority == 'C' ? 0 : item.priority + 1)));
+        update_data();
+      }
+      break;
+    }
+    case '>': {
+      if (selected_item_ > -1) {
+        auto &item = data_copy_[selected_item_];
+        todo_ref_->setPriority(item,
+                               (char) (item.priority == 0 ? 'C' : (item.priority == 'A' ? 0 : item.priority - 1)));
+        update_data();
+      }
+      break;
+    }
     default:return;
   }
 }
@@ -386,6 +448,12 @@ void task_list::update_data() {
     selected_item_ = -1;
   }
 
+  draw();
+}
+
+void task_list::sort_data() {
+  todo_ref_->sort();
+  update_data();
   draw();
 }
 }

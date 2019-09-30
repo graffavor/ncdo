@@ -50,6 +50,8 @@ class task_list : public component, public keypress_handler {
  protected:
   void update_focus(int);
   void update_data();
+  bool should_display(const task&);
+  void sort_data();
 
  private:
   todo *todo_ref_;
@@ -76,8 +78,6 @@ class task_list : public component, public keypress_handler {
   help_window help_;
 
   std::shared_ptr<exit_popup> exit_popup_;
-
-  bool should_display(const task&);
 };
 }
 }

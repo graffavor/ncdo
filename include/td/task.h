@@ -22,10 +22,12 @@ struct task {
 
   task() : created(), completed() {}
 
-  friend bool operator==(const task& a, const task& b) {
+  friend bool operator==(const task &a, const task &b) {
     return a.done == b.done && a.priority == b.priority && a.desc == b.desc;
   }
 };
+
+bool operator<(const task &, const task &);
 }
 }
 
