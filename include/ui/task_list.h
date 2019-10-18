@@ -59,7 +59,9 @@ class task_list : public component, public keypress_handler {
   int selected_item_ = -1;
   _focused_window focus_ = TASK_LIST;
 
+  // todo: merge is_* flags into state enum
   bool is_editing_ = false;
+  bool is_creating_ = false;
   bool is_searching_ = false;
   bool is_help_open_ = false;
   bool should_revert_menu_state_ = false;

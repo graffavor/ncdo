@@ -9,6 +9,7 @@ task_list::task_list(todo *td, cdo::term *tm) :
     component(L"task-list", tm), keypress_handler(tm), todo_ref_(td),
     editor_(tm), project_list_(td, tm), context_list_(td, tm),
     menu_(tm, {L"?: Help", L"F4: Quit"}), help_(tm) {
+  this->is_scrollable_ = false;
   tm->on_init += [this]() {
     auto term_width = this->term_ref_->getWidth();
     auto term_height = this->term_ref_->getHeight();
@@ -78,9 +79,14 @@ task_list::task_list(todo *td, cdo::term *tm) :
       this->is_editing_ = false;
 
       if (!buf.empty()) {
-        this->todo_ref_->addTask(buf, this->editing_at_ - 1);
+        if (is_creating_) {
+          this->todo_ref_->addTask(buf, this->editing_at_ - 1);
+        } else {
+          this->todo_ref_->updateTask(buf, this->editing_at_ - 1);
+        }
       }
 
+      this->is_creating_ = false;
       this->editor_.reset();
       this->update_data();
       this->project_list_.update();
@@ -104,6 +110,11 @@ void task_list::draw() {
 
   box(wnd_, 0, 0);
   if (is_focused_) wattron(wnd_, COLOR_PAIR(focused_window_color));
+
+  if (todo_ref_->isChanged()) {
+    mvwaddwstr(wnd_, 0, 1, L" *");
+  }
+
   mvwaddwstr(wnd_, 0, 3, L" Tasks: ");
   wattroff(wnd_, COLOR_PAIR(focused_window_color));
 
@@ -115,10 +126,10 @@ void task_list::draw() {
 
   wmove(wnd_, 1, 1);
 
-  int row = 0;
+  int row = 0, data_index = 0;
   for (auto &task : data_copy_) {
-    if (row == selected_item_ && !is_editing_) wattron(wnd_, COLOR_PAIR(focused_item_color));
-    wprintw(wnd_, "%d. ", row + 1);
+    if (data_index == selected_item_ && !is_editing_) wattron(wnd_, COLOR_PAIR(focused_item_color));
+    wprintw(wnd_, "%d. ", data_index + 1);
 
     waddch(wnd_, '[');
     if (task.done) {
@@ -126,9 +137,9 @@ void task_list::draw() {
     } else {
       waddch(wnd_, ' ');
     }
-    waddch(wnd_, ']');
+    waddwstr(wnd_, L"] ");
 
-    waddch(wnd_, ' ');
+    int pref_length = getcurx(wnd_);
 
     if (task.priority != 0) {
       wattron(wnd_, A_ITALIC);
@@ -139,20 +150,31 @@ void task_list::draw() {
       waddch(wnd_, ' ');
     }
 
+    int max_length = getmaxx(wnd_) - getcurx(wnd_) - /*borders*/2;
+    int sum_length = 0;
+
     wstringstream ss(task.desc);
     wstring tmp;
 
     while (ss >> tmp) {
+      if (((int) (tmp.length() + 1) + sum_length) > max_length - 1) {
+        wmove(wnd_, ++row + 1, pref_length);
+        sum_length = 0;
+      }
+
       if (tmp[0] == '+' || tmp[0] == '@') wattron(wnd_, A_DIM);
 
       waddwstr(wnd_, tmp.c_str());
       wattroff(wnd_, A_DIM);
       waddch(wnd_, ' ');
+
+      sum_length += (int) tmp.length() + 1;
     }
 
     wattroff(wnd_, COLOR_PAIR(focused_item_color));
 
-    row += (is_editing_ && row == (editing_at_ - 2) ? 2 : 1);
+    row += (is_editing_ && is_creating_ && row == (editing_at_ - 2) ? 2 : 1);
+    data_index++;
     wmove(wnd_, row + 1, 1);
   }
 
@@ -223,7 +245,7 @@ void task_list::on_key_pressed(wint_t key) {
         // position and number of element that being edited (created)
         editing_at_ = selected_item_ > -1 ? (selected_item_ + 2) : ((int) data_copy_.size() + 1);
 
-        is_editing_ = true;
+        is_editing_ = is_creating_ = true;
 
         // first draw
         draw();
@@ -264,11 +286,31 @@ void task_list::on_key_pressed(wint_t key) {
 
       break;
     }
+    case 'e':
+    case 'E': {
+      if (is_focused_ && !is_editing_ && selected_item_ > -1) {
+        // position and number of element that being edited (created)
+        editing_at_ = selected_item_ + 1;
+
+        is_editing_ = true;
+
+        // first draw
+        draw();
+        // then start editing from current position
+        wstringstream wss;
+        wss << editing_at_ << L". [" << (data_copy_[selected_item_].done ? L"x" : L" ") << "] ";
+        editor_.setBuffer(data_copy_[selected_item_].desc)
+            .start(wss.str(), editing_at_, 1, getmaxx(wnd_) - 3);
+      }
+
+      break;
+    }
     case 'w':
     case 'W': {
       try {
         todo_ref_->save();
         menu_.push_state({L"Data saved!"});
+        draw();
       } catch (std::system_error &e) {
         std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
         menu_.push_state({L"Write failed: " + conv.from_bytes(e.what())});

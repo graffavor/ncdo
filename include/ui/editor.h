@@ -18,7 +18,7 @@ class editor : component {
 
   void start(wstring prefix = L"> ", int at_y = 0, int at_x = 0, int width = 20);
   void reset();
-  editor& setBuffer(const wstring& v) { buffer = v; return *this; }
+  editor& setBuffer(wstring v) { buffer = std::move(v); return *this; }
 
   void draw() override;
 

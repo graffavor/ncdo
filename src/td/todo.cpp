@@ -68,7 +68,7 @@ wstring format_task(const task &t) {
   }
 
   if (t.priority > 0) {
-    ss << t.priority << " ";
+    ss << "(" << t.priority << ") ";
   }
 
   if (!t.created.is_not_a_date()) {
@@ -174,6 +174,12 @@ void todo::addTask(const wstring &str, int pos) {
   else if (pos < (int) tasks_.size())
     tasks_.emplace(tasks_.begin() + pos, tmp);
 
+  extract_task_fields(str);
+  is_changed = true;
+}
+
+void todo::updateTask(const wstring &str, int pos) {
+  tasks_[pos].desc = str;
   extract_task_fields(str);
   is_changed = true;
 }

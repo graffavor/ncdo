@@ -18,7 +18,8 @@ class exit_popup : public component, rawpress_handler {
  private:
   todo* todo_ref_;
 
-  int selected_item_ = 0;
+  // select "YES" by default
+  int selected_item_ = 1;
 };
 }
 }

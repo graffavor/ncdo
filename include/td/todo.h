@@ -35,6 +35,7 @@ class todo {
   bool isChanged() { return is_changed; }
 
   void addTask(const wstring &str, int pos = -1);
+  void updateTask(const wstring &str, int pos);
 
   void setComplete(const task &, bool);
   void setPriority(const task &, char);

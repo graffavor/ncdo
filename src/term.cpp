@@ -54,14 +54,14 @@ void term::run() {
     wint_t ch;
     get_wch(&ch);
 
-    on_raw_pressed(ch);
-
     if (ch == KEY_F(4) || (mode_ == MODE_NORMAL && (ch == 'q' || ch == 'Q'))) {
       end_ = true;
       on_exit();
     } else if (mode_ != MODE_SKIP) {
       on_key_pressed(ch);
     }
+
+    on_raw_pressed(ch);
   }
 }
 
