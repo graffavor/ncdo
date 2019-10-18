@@ -43,6 +43,11 @@ int main(int argc, char *argv[]) {
   cdo::config conf(confp);
 
   if (!filep.empty()) {
+    if (!confp.empty()) {
+      std::cerr << "only one of -f/-c should be set" << std::endl;
+      return 1;
+    }
+
     conf.singleFileSetup(filep);
   }
 
