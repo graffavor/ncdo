@@ -25,3 +25,6 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE include src ${CURSES_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES} ${Boost_LIBRARIES})
+
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin)
